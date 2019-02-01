@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="www.nugamedical.com">
+
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/nuga_engicon"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".IntroActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".LoginActivity">
+
+        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name">
+
+        </activity>
+        <activity android:name=".CalendarActivity"></activity>
+        <activity android:name=".AirconditionerSettingActivity"></activity>
+        <activity android:name=".DustSettingActivity"></activity>
+        <activity android:name=".VentilationSetting"></activity>
+        <activity android:name=".SigninActivity"></activity>
+        <activity android:name=".SingupActivity"></activity>
+    </application>
+
+</manifest>
