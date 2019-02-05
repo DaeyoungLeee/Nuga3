@@ -27,8 +27,8 @@
 
     <Button
         android:id="@+id/btn_login"
-        android:layout_width="240dp"
-        android:layout_height="52dp"
+        android:layout_width="224dp"
+        android:layout_height="48dp"
         android:layout_centerHorizontal="true"
         android:background="@drawable/signinbutton"
         android:fontFamily="@font/nanumsquarebold"

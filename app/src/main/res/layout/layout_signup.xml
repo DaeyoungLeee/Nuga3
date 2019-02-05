@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -29,10 +32,12 @@
         android:transitionName="transition_mark" />
 
 
+
     <RelativeLayout
         android:id="@+id/rel"
         android:layout_width="300dp"
         android:layout_height="366dp"
+        android:elevation="16dp"
         android:layout_centerHorizontal="true"
         android:background="@drawable/bg_nugaback"
         android:layout_marginTop="190dp">
@@ -48,26 +53,17 @@
             android:hint="이름"
             android:inputType="textPersonName" />
 
+
+
         <EditText
-            android:id="@+id/editText_setAge"
+            android:id="@+id/editText_setid"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/editText_setName"
             android:layout_centerHorizontal="true"
             android:ems="10"
             android:fontFamily="@font/nanumsquareb"
-            android:hint="생년월일(6자리)"
-            android:inputType="textPersonName" />
-
-        <EditText
-            android:id="@+id/editText_setid"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/editText_setAge"
-            android:layout_centerHorizontal="true"
-            android:ems="10"
-            android:fontFamily="@font/nanumsquareb"
-            android:hint="아이디"
+            android:hint="아이디(E-mail)"
             android:inputType="textPersonName" />
 
         <EditText
@@ -76,10 +72,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/editText_setid"
             android:layout_centerHorizontal="true"
+            android:textColor="#000000"
             android:ems="10"
             android:fontFamily="@font/nanumsquareb"
             android:hint="비밀번호"
-            android:inputType="textPersonName" />
+            android:inputType="textPassword" />
 
         <EditText
             android:id="@+id/editText_setpassword2"
@@ -90,15 +87,16 @@
             android:ems="10"
             android:fontFamily="@font/nanumsquareb"
             android:hint="비밀번호 확인"
-            android:inputType="textPersonName" />
+            android:inputType="textPassword" />
     </RelativeLayout>
 
     <Button
         android:id="@+id/btn_register"
-        android:layout_width="240dp"
-        android:layout_height="52dp"
-        android:layout_alignParentBottom="true"
+        android:layout_width="224dp"
+        android:layout_height="48dp"
+        android:layout_below="@+id/rel"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="63dp"
         android:layout_marginBottom="64dp"
         android:background="@drawable/signupbutton"
         android:fontFamily="@font/nanumsquarebold"
@@ -107,3 +105,4 @@
         android:textSize="16sp"
         android:transitionName="transition_signup" />
 </RelativeLayout>
+</ScrollView>

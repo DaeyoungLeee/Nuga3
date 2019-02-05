@@ -39,8 +39,8 @@
 
     <Button
         android:id="@+id/btn_signup"
-        android:layout_width="240dp"
-        android:layout_height="52dp"
+        android:layout_width="224dp"
+        android:layout_height="48dp"
         android:layout_gravity="center"
         android:layout_marginTop="100dp"
         android:text="회원가입"
@@ -53,8 +53,8 @@
     <Button
         android:id="@+id/btn_signin"
         android:fontFamily="@font/nanumsquarebold"
-        android:layout_width="240dp"
-        android:layout_height="52dp"
+        android:layout_width="224dp"
+        android:layout_height="48dp"
         android:background="@drawable/signinbutton"
         android:layout_gravity="center"
         android:transitionName="transition_signin"

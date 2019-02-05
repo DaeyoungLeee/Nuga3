@@ -12,12 +12,13 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+    private TextView profile_email, profile_name;
 
     //인터넷 연결주소 설정
     private  Uri browserUri = Uri.parse("http://www.nugamedical.com/html_2017/");
@@ -50,7 +51,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     showFragment(FourthFragment.newInstance());
                     return true;
                 case R.id.bottomBarItemFifth:
-                    showFragment(FifthFragment.newInstance());
+                    Intent intent_settings = new Intent(MainActivity.this, SettingActivity.class);
+                    startActivity(intent_settings);
                     return true;
             }
             return false;
@@ -62,6 +64,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // shared preference
+        profile_email = findViewById(R.id.profile_email);
+        profile_name = findViewById(R.id.profile_name);
+
 
         // 처음 시작 화면 default값 (frag1)
         showFragment(FirstFragment.newInstance());
@@ -87,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     // showFrag 메소드 : 각각의 프래그먼트를 보여줌
 
     public void showFragment(Fragment f){
-        getFragmentManager().beginTransaction().replace(R.id.contents, f).commit();
+        getFragmentManager().beginTransaction().replace(R.id.frame_main, f).commit();
     }
 
 
@@ -139,7 +146,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 finish();
             }
         });
-        builder.setPositiveButton("닫기", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("아니오", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
@@ -149,4 +156,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
+
+
 }
