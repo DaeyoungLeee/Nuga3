@@ -2,6 +2,7 @@ package www.nugamedical.com;
 
 import android.app.Fragment;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -32,7 +33,7 @@ public class FirstFragment extends Fragment /*implements View.OnClickListener*/{
 
 
     private SwipeRefreshLayout swipe_frag1;
-    private TextView weather_state, nowTemperature, nowHumidity, nowCity;
+    private TextView weather_state, nowTemperature, nowHumidity, nowCity, now_small_dust, now_big_dust, station_name;
     private ImageView weather_icon;
     /*
     private  ImageView btn_lightening, btn_thermometer, btn_humidity, btn_dust, btn_fire, btn_emergency, btn_cctv;
@@ -59,8 +60,13 @@ public class FirstFragment extends Fragment /*implements View.OnClickListener*/{
         nowHumidity = view.findViewById(R.id.nowHumidity);
         nowCity = view.findViewById(R.id.nowCity);
         weather_icon = view.findViewById(R.id.weather_icon);
+        now_small_dust = view.findViewById(R.id.now_small_dust);
+        now_big_dust = view.findViewById(R.id.now_big_dust);
+        station_name = view.findViewById(R.id.station_name);
+
         //날씨 업데이트
         findWeather();
+        findDust();
 
         /*
         //이미지 버튼 클릭 세팅
@@ -169,54 +175,70 @@ public class FirstFragment extends Fragment /*implements View.OnClickListener*/{
         RequestQueue queue = Volley.newRequestQueue(getContext());
         queue.add(jor);
     }
-    /*
-    //이미지 버튼이 눌렸을 경우
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.btn_lightening:
-                showFragment(SecondFragment.newInstance());
 
-                break;
-            case R.id.btn_dust:
-                showFragment(SecondFragment.newInstance());
 
-                break;
-            case R.id.btn_emergency:
-                showFragment(SecondFragment.newInstance());
 
-                break;
-            case R.id.btn_fire:
-                showFragment(SecondFragment.newInstance());
+    // 미세먼지 관련 코딩//
+    public void findDust(){
 
-                break;
-            case R.id.btn_humidity:
-                showFragment(SecondFragment.newInstance());
+        String Url = "http://openapi.airkorea.or.kr/openapi/services/rest/ArpltnInforInqireSvc/getCtprvnRltmMesureDnsty?serviceKey=KAl20Yu4DWh1E5%2Fvrdrp%2FNvOZBFsJl5UuYusfbRaTPcoy%2F3%2F7kHat%2FUgQM7XlezQcpUQQ46zDj0ohNjQr1bK6g%3D%3D&numOfRows=10&pageNo=1&sidoName=강원&ver=1.3&_returnType=json";      //open weather api 받아오기
 
-                break;
-            case R.id.btn_thermometer:
-                showFragment(SecondFragment.newInstance());
+        JsonObjectRequest jor = new JsonObjectRequest(Request.Method.GET, Url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    JSONArray array = response.getJSONArray("list");
 
-                break;
-            case R.id.btn_cctv:
-                showFragment(ThirdFragment.newInstance());
+                       JSONObject atmosphere = array.getJSONObject(5);
 
-                break;
-            case R.id.btn_environment:
-                showFragment(SecondFragment.newInstance());
+                       String pm10 = atmosphere.getString("pm10Value");
+                       String pm25 = atmosphere.getString("pm25Value");
 
-                break;
-            case R.id.btn_electronics:
-                showFragment(FourthFragment.newInstance());
+                       //미세먼지 농도에 따른 색깔
+                    int pm10Int = Integer.parseInt(pm10);       //String을 int형으로 변환
+                    int pm25int = Integer.parseInt(pm25);
 
-                break;
+                    if(pm10Int < 30){
+                        now_big_dust.setTextColor(Color.BLUE);
+                    }else if(pm10Int >= 30 && pm10Int < 80){
+                        now_big_dust.setTextColor(Color.GREEN);
+                    }else if(pm10Int >= 80 && pm10Int < 150){
+                        now_big_dust.setTextColor(Color.YELLOW);
+                    }else if(pm10Int > 150){
+                        now_big_dust.setTextColor(Color.RED);
+                    }
 
-        }
+                    if(pm25int < 15){
+                        now_small_dust.setTextColor(Color.BLUE);
+                    }else if(pm25int >= 15 && pm25int < 35){
+                        now_small_dust.setTextColor(Color.GREEN);
+                    }else if(pm25int >= 35 && pm25int < 75){
+                        now_small_dust.setTextColor(Color.YELLOW);
+                    }else if(pm25int > 75){
+                        now_small_dust.setTextColor(Color.RED);
+                    }
+
+                       now_big_dust.append(pm10);
+                       now_small_dust.append(pm25);
+
+
+                }catch (JSONException e){
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+
+        RequestQueue queue = Volley.newRequestQueue(getContext());
+        queue.add(jor);
+
     }
 
-    public void showFragment(Fragment f){
-        getFragmentManager().beginTransaction().replace(R.id.contents, f).commit();
-    }*/
 
     public void showFragment(Fragment f){
         getFragmentManager().beginTransaction().replace(R.id.frame_main, f).commit();
